@@ -1,0 +1,115 @@
+﻿<Page x:Class="MvvmCrudGv.Views.Home"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      mc:Ignorable="d" 
+      xmlns:c="clr-namespace:MvvmCrudGv.Common"
+      d:DesignHeight="300" d:DesignWidth="300"
+	Title="Home"
+      DataContext="{Binding HomeViewModel, Source={StaticResource Locator}}">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="24"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Row="0" Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="50"></ColumnDefinition>
+                <ColumnDefinition Width="50"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Border Grid.Row="0" Grid.Column="0" Style="{StaticResource grayBgBorder}"></Border>
+            <Border Grid.Row="0" Grid.Column="1" Style="{StaticResource grayBgBorder}"></Border>
+            <Border Grid.Row="0" Grid.Column="2" Style="{StaticResource grayBgBorder}"></Border>
+            <Border Grid.Row="0" Grid.Column="3" Style="{StaticResource grayBgBorder}"></Border>
+            <TextBlock  Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center">
+                <Bold>
+                    Title
+                </Bold>
+            </TextBlock>
+            <TextBlock  Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center">
+                <Bold>
+                    Notes
+                </Bold>
+            </TextBlock>
+            <TextBlock  Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center">
+                <Bold>
+                    Estim.
+                </Bold>
+            </TextBlock>
+            <TextBlock  Grid.Row="0" Grid.Column="3" HorizontalAlignment="Center">
+                <Bold>
+                    Cmplt.
+                </Bold>
+            </TextBlock>
+        </Grid>
+        <ListView ItemsSource="{Binding TodoList}" Grid.Row="1" Grid.Column="0" SelectedItem="{Binding SelectedTodo}" SelectedIndex="{Binding TodoListSelectedIndex}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch"
+                b:DoubleClickToCommand.Command="{Binding GoTodoDetailsCmd}" b:DoubleClickToCommand.CommandParameter="{Binding SelectedTodo}"  xmlns:b="clr-namespace:MvvmCrudGv.Common.Behaviors">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="50"></ColumnDefinition>
+                            <ColumnDefinition Width="50"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Border Grid.Row="0" Grid.ColumnSpan="4" Visibility="{Binding IsDirty,Converter={StaticResource booleanToVisibilityConverter}}" BorderBrush="Red" BorderThickness="1"/>
+                        <TextBlock Text="{Binding Title}" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" />
+                        <TextBlock Text="{Binding Text, Converter={StaticResource textTruncateConverter},ConverterParameter=32}" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" />
+                        <TextBlock Text="{Binding EstimatedPomodori}" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center"  />
+                        <TextBlock Text="{Binding CompletedPomodori}" Grid.Row="0" Grid.Column="3" HorizontalAlignment="Center"  />
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Grid Grid.Row="2" Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="24"></RowDefinition>
+                <RowDefinition Height="24"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="50"></ColumnDefinition>
+                <ColumnDefinition Width="50"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBox Text="{Binding SelectedTodo.Title}" Grid.Row="0" Grid.Column="0" />
+            <TextBox Text="{Binding SelectedTodo.Text}" Grid.Row="0" Grid.Column="1" />
+            <TextBox Grid.Row="0" Grid.Column="2">
+                <Binding Path="SelectedTodo.EstimatedPomodori">
+                    <Binding.ValidationRules>
+                        <c:NumericValidator></c:NumericValidator>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox>
+            <TextBox Grid.Row="0" Grid.Column="3" >
+                <Binding Path="SelectedTodo.CompletedPomodori">
+                    <Binding.ValidationRules>
+                        <c:NumericValidator></c:NumericValidator>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox>
+            <StackPanel Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="4" Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Command="{Binding NewTodoCmd}" Visibility="{Binding TodoListEditMode, Converter={StaticResource editModeToVisibilityConverter}, ConverterParameter=Update}" Content="New"></Button>
+                <Button  Command="{Binding AddTodoCmd}" Visibility="{Binding TodoListEditMode, Converter={StaticResource editModeToVisibilityConverter}, ConverterParameter=Create}" Content="Add"></Button>
+                <Button  Command="{Binding UpdateTodoCmd}" Visibility="{Binding TodoListEditMode, Converter={StaticResource editModeToVisibilityConverter}, ConverterParameter=Update}" Content="Save"></Button>
+                <Button  Command="{Binding GoTodoDetailsCmd}" Visibility="{Binding TodoListEditMode, Converter={StaticResource editModeToVisibilityConverter}, ConverterParameter=Update}" Content="Details"></Button>
+                <Button  Command="{Binding DeleteTodoCmd}" Visibility="{Binding TodoListEditMode, Converter={StaticResource editModeToVisibilityConverter}, ConverterParameter=Update}" Content="Delete"></Button>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Page>

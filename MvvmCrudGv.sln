@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Express 2013 for Windows Desktop
+VisualStudioVersion = 12.0.30723.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvvmCrudGv", "MvvmCrudGv\MvvmCrudGv.csproj", "{BDE09260-D84A-4611-B6A4-94EDF9DC3FD8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvvmCrudGv.Service", "MvvmCrudGv.Service\MvvmCrudGv.Service.csproj", "{9C8C7A99-C058-47B9-B59A-AC69A2B1021B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BDE09260-D84A-4611-B6A4-94EDF9DC3FD8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BDE09260-D84A-4611-B6A4-94EDF9DC3FD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BDE09260-D84A-4611-B6A4-94EDF9DC3FD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BDE09260-D84A-4611-B6A4-94EDF9DC3FD8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C8C7A99-C058-47B9-B59A-AC69A2B1021B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C8C7A99-C058-47B9-B59A-AC69A2B1021B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C8C7A99-C058-47B9-B59A-AC69A2B1021B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C8C7A99-C058-47B9-B59A-AC69A2B1021B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

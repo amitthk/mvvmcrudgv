@@ -1,0 +1,50 @@
+﻿<Page x:Class="MvvmCrudGv.Views.TodoDetails"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="300"
+	Title="TodoDetails"
+      xmlns:c="clr-namespace:MvvmCrudGv.Common"
+      DataContext="{Binding TodoDetailsViewModel, Source={StaticResource Locator}}">
+
+    <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="24"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="24"></RowDefinition>
+            <RowDefinition Height="24"></RowDefinition>
+            <RowDefinition Height="24"></RowDefinition>
+        </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Border Grid.Row="0" Grid.RowSpan="5" Grid.ColumnSpan="2" Visibility="{Binding IsDirty,Converter={StaticResource booleanToVisibilityConverter}}" BorderBrush="Red" BorderThickness="1"/>
+        <Label Grid.Row="0" Grid.Column="0" >Title</Label>
+        <Label Grid.Row="1" Grid.Column="0" >Notes</Label>
+        <Label Grid.Row="2" Grid.Column="0" >Estimated Hrs</Label>
+        <Label Grid.Row="3" Grid.Column="0" >Completed Hrs</Label>
+            <TextBox Text="{Binding Title}" Grid.Row="0" Grid.Column="1" />
+            <TextBox Text="{Binding Text}" Grid.Row="1" Grid.Column="1" VerticalContentAlignment="Stretch" Height="Auto" AcceptsReturn="True" />
+            <TextBox Grid.Row="2" Grid.Column="1">
+                <Binding Path="EstimatedPomodori">
+                    <Binding.ValidationRules>
+                        <c:NumericValidator></c:NumericValidator>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox>
+            <TextBox Grid.Row="3" Grid.Column="2" >
+                <Binding Path="CompletedPomodori">
+                    <Binding.ValidationRules>
+                        <c:NumericValidator></c:NumericValidator>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox>
+        <StackPanel Grid.Row="4" Grid.ColumnSpan="2" HorizontalAlignment="Right" Orientation="Horizontal">
+            <Button Command="{Binding GoBackCmd}" Content="Back" Width="50"></Button>
+            <Button Command="{Binding SaveTodoCmd}" Content="Save" Width="50"></Button>
+        </StackPanel>
+    </Grid>
+</Page>
