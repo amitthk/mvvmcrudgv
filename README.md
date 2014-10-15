@@ -81,5 +81,5 @@ Below are the steps we performed to create this project:-
  
  14. Add the Persistence layer.
 	- We right click the MvvmCrudGv.Service project, "Manage Nuget Packages...." and installed "protobuf-net" package here.
-	- We added the TodoPersistence class and associated ProtobufDB and helper classes.
+	- We added the TodoPersistence class and associated ProtobufDB and helper classes. Also update our DataContract "Todo" with [ProtoContract],[Serializable] and its properties with [ProtoMember(<int>)] attributes.
 	- Update the ITodoService to use TodoPersistence instead of simple in-memory list.

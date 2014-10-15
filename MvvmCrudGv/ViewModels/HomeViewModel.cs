@@ -191,6 +191,7 @@ namespace MvvmCrudGv.ViewModels
         {
             SelectedTodo = new TodoViewModel();
             TodoListSelectedIndex = -1;
+            SelectedTodo.IsDirty = false;
         }
 
         private bool CanAddTodo(object obj)
