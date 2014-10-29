@@ -201,7 +201,7 @@ namespace MvvmCrudGv.ViewModels
 
         private void ExecGoTodoDetails(object obj)
         {
-            _eventAggregator.Publish<MvvmCrudGv.Views.NavMessage>(new Views.NavMessage(new Views.TodoDetails(SelectedTodo), null));
+            _eventAggregator.Publish<MvvmCrudGv.Views.NavMessage>(new Views.NavMessage(new Views.TodoDetails(), SelectedTodo));
         }
 
         private bool CanGoTodoDetails(object obj)

@@ -1,4 +1,5 @@
 ﻿using MvvmCrudGv.Common;
+using MvvmCrudGv.Common.Messaging;
 using MvvmCrudGv.Service.Entity;
 using System;
 using System.Collections.Generic;
@@ -11,13 +12,9 @@ namespace MvvmCrudGv.ViewModels
 {
     public class TodoViewModel:BaseViewModel
     {
-
         public Todo _todo { get; private set; }
 
-        public ICommand GoBackCmd { get; private set; }
-        private readonly ICommand _SaveTodoCmd;
 
-        public ICommand SaveTodoCmd { get { return (_SaveTodoCmd); } }
 
         public TodoViewModel():this(new Todo())
         {
@@ -27,9 +24,7 @@ namespace MvvmCrudGv.ViewModels
         public TodoViewModel(Todo todo)
         {
             _todo = todo;
-            //This goes in Initialization/constructor
-            GoBackCmd = new RelayCommand(ExecGoBack, CanGoBack);
-            _SaveTodoCmd = new RelayCommand(ExecSaveTodo, CanSaveTodo);
+
         }
 
 
@@ -142,39 +137,5 @@ namespace MvvmCrudGv.ViewModels
         } 
         #endregion
 
-        #region Commands
-
-        private void ExecGoBack(object obj)
-        {
-            if (IsDirty)
-            {
-                System.Windows.MessageBoxResult confirmRunResult = System.Windows.MessageBox.Show("If you go back the changes will be discarded. Do you want to do this? If not, select 'Cancel' and 'Save' the changes first.", "Discard Changes?", System.Windows.MessageBoxButton.OKCancel);
-                if (confirmRunResult == System.Windows.MessageBoxResult.Cancel)
-                {
-                    return;
-                }
-            }
-            App.eventAggregator.Publish<Views.NavMessage>(new Views.NavMessage("Home"));
-        }
-
-        private bool CanGoBack(object obj)
-        {
-            return (true);
-        }
-
-        private void ExecSaveTodo(object obj)
-        {
-            //Todo: Add the functionality for SaveTodoCmd Here
-            bool isok = BootStrapper.Instance.TodoService.Update(this._todo);
-            IsDirty = !isok;
-        }
-
-        [DebuggerStepThrough]
-        private bool CanSaveTodo(object obj)
-        {
-            //Todo: Add the checking for CanSaveTodo Here
-            return (IsDirty);
-        } 
-        #endregion
     }
 }

@@ -26,17 +26,17 @@
         <Label Grid.Row="1" Grid.Column="0" >Notes</Label>
         <Label Grid.Row="2" Grid.Column="0" >Estimated Hrs</Label>
         <Label Grid.Row="3" Grid.Column="0" >Completed Hrs</Label>
-            <TextBox Text="{Binding Title}" Grid.Row="0" Grid.Column="1" />
-            <TextBox Text="{Binding Text}" Grid.Row="1" Grid.Column="1" VerticalContentAlignment="Stretch" Height="Auto" AcceptsReturn="True" />
+        <TextBox Text="{Binding CurrentTodo.Title}" Grid.Row="0" Grid.Column="1" />
+        <TextBox Text="{Binding CurrentTodo.Text}" Grid.Row="1" Grid.Column="1" VerticalContentAlignment="Stretch" Height="Auto" AcceptsReturn="True" />
             <TextBox Grid.Row="2" Grid.Column="1">
-                <Binding Path="EstimatedPomodori">
+            <Binding Path="CurrentTodo.EstimatedPomodori">
                     <Binding.ValidationRules>
                         <c:NumericValidator></c:NumericValidator>
                     </Binding.ValidationRules>
                 </Binding>
             </TextBox>
             <TextBox Grid.Row="3" Grid.Column="2" >
-                <Binding Path="CompletedPomodori">
+            <Binding Path="CurrentTodo.CompletedPomodori">
                     <Binding.ValidationRules>
                         <c:NumericValidator></c:NumericValidator>
                     </Binding.ValidationRules>

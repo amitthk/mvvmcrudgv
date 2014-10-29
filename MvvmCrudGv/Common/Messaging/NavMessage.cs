@@ -41,4 +41,16 @@ namespace MvvmCrudGv.Views
             NavigationStateParams=navigationStateParams;
         }
     }
+
+    public class ObjMessage
+    {
+        public string Notification { get; private set; }
+        public object PayLoad { get; private set; }
+
+        public ObjMessage(string pageName, object payLoad)
+        {
+            Notification = pageName;
+            PayLoad = payLoad;
+        }
+    }
 }
