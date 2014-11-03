@@ -45,8 +45,11 @@ namespace MvvmCrudGv.ViewModels
 
         private void UpdateTodo(MvvmCrudGv.Views.ObjMessage message)
         {
-            var td = (TodoViewModel)message.PayLoad;
-            CurrentTodo = td;
+            if (message.Notification.Equals("TodoDetails"))
+            {
+                var td = (TodoViewModel)message.PayLoad;
+                CurrentTodo = td;
+            }
 
         }
 
