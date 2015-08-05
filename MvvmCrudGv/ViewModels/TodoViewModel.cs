@@ -49,7 +49,7 @@ namespace MvvmCrudGv.ViewModels
             get { return _IsEditing; }
             set
             {
-                if ((null != value) && (_IsEditing != value))
+                if (_IsEditing != value)
                 {
                     _IsEditing = value;
                     OnPropertyChanged("IsEditing");

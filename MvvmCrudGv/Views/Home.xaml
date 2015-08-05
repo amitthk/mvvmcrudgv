@@ -13,6 +13,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="24"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="50"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -24,32 +25,11 @@
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="50"></ColumnDefinition>
-                <ColumnDefinition Width="50"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Border Grid.Row="0" Grid.Column="0" Style="{StaticResource grayBgBorder}"></Border>
-            <Border Grid.Row="0" Grid.Column="1" Style="{StaticResource grayBgBorder}"></Border>
-            <Border Grid.Row="0" Grid.Column="2" Style="{StaticResource grayBgBorder}"></Border>
-            <Border Grid.Row="0" Grid.Column="3" Style="{StaticResource grayBgBorder}"></Border>
             <TextBlock  Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center">
                 <Bold>
                     Title
-                </Bold>
-            </TextBlock>
-            <TextBlock  Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center">
-                <Bold>
-                    Notes
-                </Bold>
-            </TextBlock>
-            <TextBlock  Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center">
-                <Bold>
-                    Estim.
-                </Bold>
-            </TextBlock>
-            <TextBlock  Grid.Row="0" Grid.Column="3" HorizontalAlignment="Center">
-                <Bold>
-                    Cmplt.
                 </Bold>
             </TextBlock>
         </Grid>
@@ -63,38 +43,64 @@
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"></ColumnDefinition>
-                            <ColumnDefinition Width="*"></ColumnDefinition>
-                            <ColumnDefinition Width="50"></ColumnDefinition>
-                            <ColumnDefinition Width="50"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <Border Grid.Row="0" Grid.ColumnSpan="4" Visibility="{Binding IsDirty,Converter={StaticResource booleanToVisibilityConverter}}" BorderBrush="Red" BorderThickness="1"/>
-                        <TextBlock  Visibility="{Binding IsEditing,Converter={StaticResource inverseBooleanToVisibilityConverter}}" Text="{Binding Title}" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" />
-                        <TextBox  Visibility="{Binding IsEditing,Converter={StaticResource booleanToVisibilityConverter}}" Text="{Binding Title}" Grid.Row="0" Grid.Column="0" />
-
-                        <TextBlock  Visibility="{Binding IsEditing,Converter={StaticResource inverseBooleanToVisibilityConverter}}" Text="{Binding Text, Converter={StaticResource textTruncateConverter},ConverterParameter=32}" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" />
-                        <TextBox  Visibility="{Binding IsEditing,Converter={StaticResource booleanToVisibilityConverter}}" Text="{Binding Text}" Grid.Row="0" Grid.Column="1" />
-
-                        <TextBlock  Visibility="{Binding IsEditing,Converter={StaticResource inverseBooleanToVisibilityConverter}}" Text="{Binding EstimatedPomodori}" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center"  />
-                        <TextBox  Visibility="{Binding IsEditing,Converter={StaticResource booleanToVisibilityConverter}}" Grid.Row="0" Grid.Column="2">
-                            <Binding Path="EstimatedPomodori">
-                                <Binding.ValidationRules>
-                                    <c:NumericValidator></c:NumericValidator>
-                                </Binding.ValidationRules>
-                            </Binding>
-                        </TextBox>
-                        <TextBlock  Visibility="{Binding IsEditing,Converter={StaticResource inverseBooleanToVisibilityConverter}}" Text="{Binding CompletedPomodori}" Grid.Row="0" Grid.Column="3" HorizontalAlignment="Center"  />
-                        <TextBox  Visibility="{Binding IsEditing,Converter={StaticResource booleanToVisibilityConverter}}" Grid.Row="0" Grid.Column="3" >
-                            <Binding Path="CompletedPomodori">
-                                <Binding.ValidationRules>
-                                    <c:NumericValidator></c:NumericValidator>
-                                </Binding.ValidationRules>
-                            </Binding>
-                        </TextBox>
+                        <Border Grid.Row="0"  Visibility="{Binding IsDirty,Converter={StaticResource booleanToVisibilityConverter}}" BorderBrush="Red" BorderThickness="1"/>
+                        <TextBlock  Visibility="{Binding IsEditing,Converter={StaticResource inverseBooleanToVisibilityConverter}}" Text="{Binding Title}" Grid.Row="0" Grid.Column="0"  HorizontalAlignment="Center" />
+                        <TextBox  Visibility="{Binding IsEditing,Converter={StaticResource booleanToVisibilityConverter}}" Text="{Binding Title}" Grid.Row="0"  Grid.Column="0" />
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
         <Grid Grid.Row="2" Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="24" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="50"></ColumnDefinition>
+                <ColumnDefinition Width="50"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Border Grid.Row="0" Grid.Column="0" Style="{StaticResource grayBgBorder}"></Border>
+            <Border Grid.Row="0" Grid.Column="1" Style="{StaticResource grayBgBorder}"></Border>
+            <Border Grid.Row="0" Grid.Column="2" Style="{StaticResource grayBgBorder}"></Border>
+            <TextBlock  Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center">
+                <Bold>
+                    Notes
+                </Bold>
+            </TextBlock>
+            <TextBlock  Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center">
+                <Bold>
+                    Estim.
+                </Bold>
+            </TextBlock>
+            <TextBlock  Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center">
+                <Bold>
+                    Cmplt.
+                </Bold>
+            </TextBlock>
+            
+            <TextBlock  Visibility="{Binding IsEditing,Converter={StaticResource inverseBooleanToVisibilityConverter}}" Text="{Binding SelectedTodo.Text, Converter={StaticResource textTruncateConverter},ConverterParameter=32}" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" />
+            <TextBox  Visibility="{Binding IsEditing,Converter={StaticResource booleanToVisibilityConverter}}" Text="{Binding SelectedTodo.Text}" Grid.Row="1" Grid.Column="0" />
+
+            <TextBlock  Visibility="{Binding IsEditing,Converter={StaticResource inverseBooleanToVisibilityConverter}}" Text="{Binding SelectedTodo.EstimatedPomodori}" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center"  />
+            <TextBox  Visibility="{Binding IsEditing,Converter={StaticResource booleanToVisibilityConverter}}" Grid.Row="1" Grid.Column="1">
+                <Binding Path="SelectedTodo.EstimatedPomodori">
+                    <Binding.ValidationRules>
+                        <c:NumericValidator></c:NumericValidator>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox>
+            <TextBlock  Visibility="{Binding IsEditing,Converter={StaticResource inverseBooleanToVisibilityConverter}}" Text="{Binding SelectedTodo.CompletedPomodori}" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center"  />
+            <TextBox  Visibility="{Binding IsEditing,Converter={StaticResource booleanToVisibilityConverter}}" Grid.Row="1" Grid.Column="2" >
+                <Binding Path="SelectedTodo.CompletedPomodori">
+                    <Binding.ValidationRules>
+                        <c:NumericValidator></c:NumericValidator>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox>
+        </Grid>
+        <Grid Grid.Row="3" Grid.Column="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="24"></RowDefinition>
                 <RowDefinition Height="24"></RowDefinition>
