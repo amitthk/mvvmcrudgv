@@ -68,10 +68,28 @@
                             <ColumnDefinition Width="50"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
                         <Border Grid.Row="0" Grid.ColumnSpan="4" Visibility="{Binding IsDirty,Converter={StaticResource booleanToVisibilityConverter}}" BorderBrush="Red" BorderThickness="1"/>
-                        <TextBlock Text="{Binding Title}" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" />
-                        <TextBlock Text="{Binding Text, Converter={StaticResource textTruncateConverter},ConverterParameter=32}" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" />
-                        <TextBlock Text="{Binding EstimatedPomodori}" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center"  />
-                        <TextBlock Text="{Binding CompletedPomodori}" Grid.Row="0" Grid.Column="3" HorizontalAlignment="Center"  />
+                        <TextBlock  Visibility="{Binding IsEditing,Converter={StaticResource inverseBooleanToVisibilityConverter}}" Text="{Binding Title}" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" />
+                        <TextBox  Visibility="{Binding IsEditing,Converter={StaticResource booleanToVisibilityConverter}}" Text="{Binding Title}" Grid.Row="0" Grid.Column="0" />
+
+                        <TextBlock  Visibility="{Binding IsEditing,Converter={StaticResource inverseBooleanToVisibilityConverter}}" Text="{Binding Text, Converter={StaticResource textTruncateConverter},ConverterParameter=32}" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" />
+                        <TextBox  Visibility="{Binding IsEditing,Converter={StaticResource booleanToVisibilityConverter}}" Text="{Binding Text}" Grid.Row="0" Grid.Column="1" />
+
+                        <TextBlock  Visibility="{Binding IsEditing,Converter={StaticResource inverseBooleanToVisibilityConverter}}" Text="{Binding EstimatedPomodori}" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center"  />
+                        <TextBox  Visibility="{Binding IsEditing,Converter={StaticResource booleanToVisibilityConverter}}" Grid.Row="0" Grid.Column="2">
+                            <Binding Path="EstimatedPomodori">
+                                <Binding.ValidationRules>
+                                    <c:NumericValidator></c:NumericValidator>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox>
+                        <TextBlock  Visibility="{Binding IsEditing,Converter={StaticResource inverseBooleanToVisibilityConverter}}" Text="{Binding CompletedPomodori}" Grid.Row="0" Grid.Column="3" HorizontalAlignment="Center"  />
+                        <TextBox  Visibility="{Binding IsEditing,Converter={StaticResource booleanToVisibilityConverter}}" Grid.Row="0" Grid.Column="3" >
+                            <Binding Path="CompletedPomodori">
+                                <Binding.ValidationRules>
+                                    <c:NumericValidator></c:NumericValidator>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox>
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
@@ -87,26 +105,11 @@
                 <ColumnDefinition Width="50"></ColumnDefinition>
                 <ColumnDefinition Width="50"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <TextBox Text="{Binding SelectedTodo.Title}" Grid.Row="0" Grid.Column="0" />
-            <TextBox Text="{Binding SelectedTodo.Text}" Grid.Row="0" Grid.Column="1" />
-            <TextBox Grid.Row="0" Grid.Column="2">
-                <Binding Path="SelectedTodo.EstimatedPomodori">
-                    <Binding.ValidationRules>
-                        <c:NumericValidator></c:NumericValidator>
-                    </Binding.ValidationRules>
-                </Binding>
-            </TextBox>
-            <TextBox Grid.Row="0" Grid.Column="3" >
-                <Binding Path="SelectedTodo.CompletedPomodori">
-                    <Binding.ValidationRules>
-                        <c:NumericValidator></c:NumericValidator>
-                    </Binding.ValidationRules>
-                </Binding>
-            </TextBox>
             <StackPanel Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="4" Orientation="Horizontal" HorizontalAlignment="Right">
                 <Button Command="{Binding NewTodoCmd}" Visibility="{Binding TodoListEditMode, Converter={StaticResource editModeToVisibilityConverter}, ConverterParameter=Update}" Content="New"></Button>
                 <Button  Command="{Binding AddTodoCmd}" Visibility="{Binding TodoListEditMode, Converter={StaticResource editModeToVisibilityConverter}, ConverterParameter=Create}" Content="Add"></Button>
                 <Button  Command="{Binding UpdateTodoCmd}" Visibility="{Binding TodoListEditMode, Converter={StaticResource editModeToVisibilityConverter}, ConverterParameter=Update}" Content="Save"></Button>
+                <Button Content="Go"  Command="{Binding PlayPomodoroCmd}" CommandParameter="{Binding SelectedTodoItem}" />
                 <Button  Command="{Binding GoTodoDetailsCmd}" Visibility="{Binding TodoListEditMode, Converter={StaticResource editModeToVisibilityConverter}, ConverterParameter=Update}" Content="Details"></Button>
                 <Button  Command="{Binding DeleteTodoCmd}" Visibility="{Binding TodoListEditMode, Converter={StaticResource editModeToVisibilityConverter}, ConverterParameter=Update}" Content="Delete"></Button>
             </StackPanel>

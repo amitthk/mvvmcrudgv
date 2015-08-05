@@ -1,0 +1,63 @@
+﻿<Page x:Class="MvvmCrudGv.Views.TodoPlayView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="300"
+	Title="TodoPlayView"
+            xmlns:c="clr-namespace:MvvmCrudGv.Common"
+      DataContext="{Binding TodoPlayViewModel, Source={StaticResource Locator}}">
+
+    <Border BorderBrush="Gray" BorderThickness="1" Background="White">
+        <Grid Height="Auto" VerticalAlignment="Top" Width="Auto" HorizontalAlignment="Stretch">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"></ColumnDefinition>
+                <ColumnDefinition Width="32"></ColumnDefinition>
+                <ColumnDefinition Width="32"></ColumnDefinition>
+                <ColumnDefinition Width="32"></ColumnDefinition>
+                <ColumnDefinition Width="32"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" Margin="0">
+                <Label Content="{Binding CurrentTodo.Title}" Margin="0"></Label>
+                <Label Content="{Binding CurrentTodo.Text}" Margin="0"></Label>
+            </StackPanel>
+            <TextBlock Grid.Column="0" Grid.Row="1">
+                <Bold FontSize="24">
+                    <Label Content="{Binding CurrentElapsed}" />
+                </Bold>
+            </TextBlock>
+            <Button Name="btn2" Command="{Binding PauseCmd}" Grid.Row="1" Grid.Column="1" Style="{StaticResource buttonCentered}">
+                <Image Source="pack://application:,,,/MvvmCrudGv;component/Resources/Icons/Pause.ico" />
+            </Button>
+            <Button Name="btn3" Command="{Binding ResumeCmd}" Grid.Row="1" Grid.Column="2" Style="{StaticResource buttonCentered}">
+                <Image Source="pack://application:,,,/MvvmCrudGv;component/Resources/Icons/Play.ico" />
+            </Button>
+            <ToggleButton Name="btn4" Grid.Row="1" Grid.Column="3" Style="{StaticResource buttonCentered}" IsChecked="{Binding Path=IsContinuePlay, Mode=TwoWay}">
+                <Image Source="pack://application:,,,/MvvmCrudGv;component/Resources/Icons/Refresh.ico" />
+            </ToggleButton>
+            <Button Name="btnGoBack" Command="{Binding GoBackCmd}" Grid.Row="1" Grid.Column="4" Content="Back" Style="{StaticResource buttonCentered}"></Button>
+            <!--<MediaElement Name="mediaTickerSound">
+                <MediaElement.Triggers>
+                    <EventTrigger RoutedEvent="MediaElement.Loaded">
+                        <EventTrigger.Actions>
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    -->
+            <!-- The MediaTimeline has a RepeatBehavior="Forever" which makes the media play over and over indefinitely.-->
+            <!--
+                                    <MediaTimeline Source="{Binding TickerSoundFileLoc}" Storyboard.TargetName="mediaTickerSound" RepeatBehavior="{Binding TickerRepeatBehavior}" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger.Actions>
+                    </EventTrigger>
+                </MediaElement.Triggers>
+            </MediaElement>-->
+        </Grid>
+    </Border>
+
+</Page>

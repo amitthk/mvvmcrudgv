@@ -42,6 +42,21 @@ namespace MvvmCrudGv.ViewModels
             }
         }
 
+        private bool _IsEditing=false;
+
+        public bool IsEditing
+        {
+            get { return _IsEditing; }
+            set
+            {
+                if ((null != value) && (_IsEditing != value))
+                {
+                    _IsEditing = value;
+                    OnPropertyChanged("IsEditing");
+                }
+            }
+        }
+
         public Guid Id
         {
             get { return _todo.Id; }

@@ -5,7 +5,11 @@
     <c:InverseBooleanToVisibilityConverter x:Key="inverseBooleanToVisibilityConverter" />
     <c:EditModeToVisibilityConverter x:Key="editModeToVisibilityConverter" />
     <c:TextTruncateConverter x:Key="textTruncateConverter" />
-
+    <Style TargetType="{x:Type Control}" x:Key="buttonCentered">
+        <Setter Property="Height" Value="24"></Setter>
+        <Setter Property="VerticalAlignment" Value="Center"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+    </Style>
     <Style TargetType="{x:Type Border}" x:Key="grayBgBorder">
         <!-- All rows -->
         <Setter Property="BorderBrush" Value="Gray" />

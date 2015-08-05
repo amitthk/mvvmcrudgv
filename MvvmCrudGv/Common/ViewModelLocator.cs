@@ -12,5 +12,7 @@ namespace MvvmCrudGv.Common
         public MainWindowViewModel MainWindowViewModel { get { return new MainWindowViewModel(); } }
         public HomeViewModel HomeViewModel { get { return new HomeViewModel(); } }
         public TodoDetailsViewModel TodoDetailsViewModel { get { return new TodoDetailsViewModel(); } }
+        public TodoPlayViewModel TodoPlayViewModel { get { return new TodoPlayViewModel(); } }
+
     }
 }

@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace MvvmCrudGv.ViewModels
@@ -21,6 +22,12 @@ namespace MvvmCrudGv.ViewModels
         public ICommand DeleteTodoCmd { get; private set; }
         public ICommand NewTodoCmd { get; private set; }
         public ICommand GoTodoDetailsCmd { get; private set; }
+        public ICommand EnterKeyCommand { get; private set; }
+        public ICommand EscapeKeyCommand { get; private set; }
+        public ICommand ToDoClickedCommand { get; private set; }
+        private readonly ICommand _PlayPomodoroCmd;
+
+        public ICommand PlayPomodoroCmd { get { return (_PlayPomodoroCmd); } }
 
         public ObservableCollection<TodoViewModel> TodoList { get; set; }
         private TodoViewModel _SelectedTodo;
@@ -68,7 +75,9 @@ namespace MvvmCrudGv.ViewModels
             {
                 if ((null != value) && (_SelectedTodo != value))
                 {
+                    _SelectedTodo.IsEditing = false;
                     _SelectedTodo = value;
+                    _SelectedTodo.IsEditing = true;
                     OnPropertyChanged("SelectedTodo");
                 }
             }
@@ -89,7 +98,6 @@ namespace MvvmCrudGv.ViewModels
             _SelectedTodo = new TodoViewModel();
 
 
-
             UpdateTodoCmd = new RelayCommand(ExecUpdateTodo, CanUpdateTodo);
             DeleteTodoCmd = new RelayCommand(ExecDeleteTodo, CanDeleteTodo);
             LoadTodoCmd = new RelayCommand(ExecLoadTodo, CanLoadTodo);
@@ -97,6 +105,7 @@ namespace MvvmCrudGv.ViewModels
             AddTodoCmd = new RelayCommand(ExecAddTodo, CanAddTodo);
             NewTodoCmd = new RelayCommand(ExecNewTodo, CanNewTodo);
             GoTodoDetailsCmd = new RelayCommand(ExecGoTodoDetails,CanGoTodoDetails);
+            _PlayPomodoroCmd = new RelayCommand(ExecPlayPomodoro, CanPlayPomodoro);
         }
 
         private void ExecNewTodo(object obj)
@@ -192,6 +201,7 @@ namespace MvvmCrudGv.ViewModels
             SelectedTodo = new TodoViewModel();
             TodoListSelectedIndex = -1;
             SelectedTodo.IsDirty = false;
+            SelectedTodo.IsEditing = false;
         }
 
         private bool CanAddTodo(object obj)
@@ -206,6 +216,19 @@ namespace MvvmCrudGv.ViewModels
 
         private bool CanGoTodoDetails(object obj)
         {
+            return (true);
+        }
+
+        private void ExecPlayPomodoro(object obj)
+        {
+            //Todo: Add the functionality for PlayPomodoroCmd Here
+            _eventAggregator.Publish<MvvmCrudGv.Views.NavMessage>(new Views.NavMessage(new Views.TodoPlayView(), SelectedTodo));
+        }
+
+        [DebuggerStepThrough]
+        private bool CanPlayPomodoro(object obj)
+        {
+            //Todo: Add the checking for CanPlayPomodoro Here
             return (true);
         }
     }
